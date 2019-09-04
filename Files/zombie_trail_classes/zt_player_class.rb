@@ -43,33 +43,33 @@ class CharacterSpeedy
       when @d >= 2 && @o >= 0
         if random_number > 5 # ! Creating a 95% probability of failure
           :unhurt
-          puts "You escaped unscathed. EXP is now #{@exp}"
+          puts "You escaped unscathed. EXP is now #{@exp}".colorize(:blue)
         elsif random_number * (@a + 1.1) / 1 > 50
           :evaded
-          puts "But you got away! Your agility saved you. EXP is now #{@exp}"
+          puts "But you got away! Your agility saved you. EXP is now #{@exp}".colorize(:blue)
         else :hurt
           @hp -= 1
-          puts "You were bit by the zombie. HP is now #{@hp}"       end
+          puts "You were bit by the zombie. HP is now #{@hp}".colorize(:red )       end
       when @d == 1 && @o >= 0
         if random_number > 50 # ! Creating a 50% probability of failure
           :unhurt
-          puts "You escaped unscathed. EXP is now #{@exp}"
+          puts "You escaped unscathed. EXP is now #{@exp}".colorize(:blue)
         elsif random_number * (@a + 1.1) / 1 > 50
           :evaded
-          puts "But you got away! Your agility saved you. EXP is now #{@exp}"
+          puts "But you got away! Your agility saved you. EXP is now #{@exp}".colorize(:blue)
         else :hurt
           @hp -= 1
-          puts "You were bit by the zombie. HP is now #{@hp}"       end
+          puts "You were bit by the zombie. HP is now #{@hp}".colorize(:red )       end
       when @d == 0 && @o >= 0
         if random_number > 90 # ! Creating a 10% probability of failure
           :unhurt
-          puts "You escaped unscathed. EXP is now #{@exp}"
+          puts "You escaped unscathed. EXP is now #{@exp}".colorize(:blue)
         elsif random_number * (@a + 1.1) / 1 > 50
           :evaded
-          puts "But you got away! Your agility saved you. EXP is now #{@exp}"
+          puts "But you got away! Your agility saved you. EXP is now #{@exp}".colorize(:blue)
         else :hurt
           @hp -= 1
-          puts "You were bit by the zombie. HP is now #{@hp}"       end
+          puts "You were bit by the zombie. HP is now #{@hp}".colorize(:red )      end
       end
     end
   end

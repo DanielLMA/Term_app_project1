@@ -1,4 +1,5 @@
 require "random-word"   #? puts RandomWord.adjs.next #practice random word
+require "colorize"
 
 require_relative "zombie_trail_modules/zt_destination_module"
 require_relative "zombie_trail_classes/zt_player_class"
@@ -10,7 +11,7 @@ class Trail
     @player = CharacterSpeedy.new
     # @player = CharacterRocky.new
     # @battle = Battle.new
-    introduction #!readd at end
+    # introduction #!readd at end
     @trail_counter = 0
     @destination_counter = 0
     game_start
@@ -18,7 +19,7 @@ class Trail
   end
 
   RandomEvent = [
-    :smallzombie, :smallzombie, :item, :walking, :walking, :walking
+    :smallzombie, :smallzombie, :item, #:walking, :walking, :walking
   ]
 
   def random_event
@@ -26,44 +27,44 @@ class Trail
   end
 
   def introduction #!readd at end
-    "Welcome to Zombie Trail!\n".each_char { |c| putc c; $stdout.flush; sleep 0.05 }
-    sleep(1.0)
-    "It is a most #{RandomWord.adjs.next} day for a #{RandomWord.adjs.next} stroll with zombies.".each_char { |c| putc c; $stdout.flush; sleep 0.05 }
-    sleep(1.0)
-    "\nFirst thing's first. What is your name?".each_char { |c| putc c; $stdout.flush; sleep 0.05 }
-    sleep(0.5)
+    "Welcome to Zombie Trail!\n".colorize(:black ).colorize( :background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.3)
+    "It is a most #{RandomWord.adjs.next} day for a #{RandomWord.adjs.next} stroll with zombies.".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.3)
+    "\nFirst thing's first. What is your name?".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.1)
     puts "\n"
     name = gets.chomp
-    "\nGreat, #{name}. Let's begin.\n".each_char { |c| putc c; $stdout.flush; sleep 0.05 }
-    sleep(1.0)
+    "\nGreat, #{name}. Let's hit the trail...\n".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.5)
   end
 
   # private #!
   def game_start
-    while @trail_counter < 3
+    while @trail_counter < 1
       trail_random_event = random_event
       trail_random_event
       sleep(1)
       @trail_counter += 1
       if trail_random_event == :smallzombie
         "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-        "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep(0.7)
         @player.exp_add.zombie_attack
         sleep(0.7)
       elsif trail_random_event == :walking
         "--------------\n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep(0.5)
-        puts "You're walking"
+        puts "You're walking".colorize(:blue )
         sleep(0.7)
-        "--------------\n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "--------------\n".colorize(:blue ).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
       else trail_random_event == :item
         "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-        "\nYou found an item!\n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "\nYou found an item!\n".colorize(:blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep (0.7)       
       end
       if @player.dead?
-        "You died.".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "You died.".colorize(:black ).colorize( :background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep (1.0)
         break
       end

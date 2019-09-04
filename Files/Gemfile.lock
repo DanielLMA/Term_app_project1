@@ -1,12 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    colorize (0.8.1)
     randomword (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  colorize (~> 0.8.1)
   randomword (~> 0.1.0)
 
 BUNDLED WITH
