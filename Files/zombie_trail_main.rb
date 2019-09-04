@@ -4,21 +4,22 @@ require_relative "zombie_trail_modules/zt_destination_module"
 require_relative "zombie_trail_classes/zt_player_class"
 
 class Trail
-  RandomEvent = [
-    :smallzombie, :smallzombie, :item, :walking, :walking, :walking,
-  ]
   include Tavern #! next step try having all of inn in this ....so that exp and hp transfers over.
 
   def initialize
     @player = CharacterSpeedy.new
     # @player = CharacterRocky.new
     # @battle = Battle.new
-    # introduction #!readd at end
+    introduction #!readd at end
     @trail_counter = 0
     @destination_counter = 0
     game_start
     game_middle
   end
+
+  RandomEvent = [
+    :smallzombie, :smallzombie, :item, :walking, :walking, :walking
+  ]
 
   def random_event
     RandomEvent.sample

@@ -1,18 +1,18 @@
-# **Zombie Trail Ruby Terminal Application**
+**Zombie Trail Ruby Terminal Application**
 
-##Purpose & Scope 
+*Purpose & Scope 
 
-##Description 
+*Description 
 
 "Zombie Trail" is a linear role-playing game utilizing CLI (command line interface). It's purpose is to explore the different methods and learning objectives covered in the initial two weeks of the Coder Academy Fast-Track course, in the context of an adventure game.
 
 The game-play follows a linear model where a player's survival, dependent on HP (health points), determines whether he/she wins the game. The player walks between destinations, between which  zombies are encountered and special items can be retrieved. 
 
-##Use
+*Use
 
 Development of the application is for the purpose of entertainment. Themes are satrical and draw from "zombie culture". Users utilize strategy skills to achieve the goal of survival in the game when confronted with different obsticals. The target audience for anyone interested in RPGs and zombies, young or old. 
 
-##Features
+*Features
 
 3 features and describe each 
 
@@ -22,9 +22,9 @@ Development of the application is for the purpose of entertainment. Themes are s
 
 3. Users will be able to utilize items to aid in their goal of reaching the end of the game. Viewing one's stockpile of items, current "HP", and current "exp", will be displayed using methods within the specific player class. 
 
-##User Interaction and Experience 
+*User Interaction and Experience 
 
-###########
+###
 Develop an outline of the user interaction and experience for the application.
 Your outline must include:
 - how the user will find out how to interact with / use each feature
