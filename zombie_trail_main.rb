@@ -1,5 +1,8 @@
 require "random-word"   #? puts RandomWord.adjs.next #practice random word
 
+require_relative "zombie_trail_modules/zt_destination_module"
+require_relative "zombie_trail_classes/zt_player_class"
+
 class Trail
   RandomEvent = [
     :smallzombie, :smallzombie, :item, :walking, :walking, :walking,
