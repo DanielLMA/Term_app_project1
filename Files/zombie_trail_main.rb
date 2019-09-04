@@ -47,7 +47,7 @@ class Trail
       @trail_counter += 1
       if trail_random_event == :smallzombie
         "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-        "\nYou encounter a zombie! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep(0.7)
         @player.exp_add.zombie_attack
         sleep(0.7)
@@ -90,7 +90,7 @@ class Trail
         @trail_counter += 1
         if trail_random_event == :smallzombie
           "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-          "\nYou encounter a zombie! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+          "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
           sleep(0.7)
           @player.exp_add.zombie_attack
           sleep(0.7)
