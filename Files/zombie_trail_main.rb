@@ -39,7 +39,7 @@ class Trail
 
   # private #!
   def game_start
-    while @trail_counter < 1
+    while @trail_counter < 3
       trail_random_event = random_event
       trail_random_event
       sleep(1)
@@ -81,7 +81,7 @@ class Trail
       "You're about to enter the Forbbiden Forest. Hope you brought your flashlight.\n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
       sleep(1.0)
       #? while @player.living - This worked below to run only while player was living.
-      while @trail_counter < 2
+      while @trail_counter < 6
         #puts "\nOn the trail..." #!make this have more specs
         trail_random_event = random_event
         trail_random_event
@@ -119,7 +119,7 @@ class Trail
   end
 
   def game_ending
-    "Game Over".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
+    "Game Over\n".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
   end
 
   def skip #blank method to skip another method storyline

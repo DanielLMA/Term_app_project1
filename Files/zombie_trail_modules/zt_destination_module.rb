@@ -65,7 +65,8 @@ module Tavern
             elsif roulette_answer != roulette_spin
               @player.hp_sub
               puts "Wrong!\n It was #{roulette_spin}.\n Lose an hp: #{@player.hp}hp"
-              if @player.dead?
+              if @player.hp == 0
+                puts "You died!"
                 break
               end
             end
@@ -92,8 +93,12 @@ module Tavern
         puts "Don't comprehend what you're saying. What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail"
         answer = gets.chomp
       end
-      puts "What now?"
+      if @player.hp == 0
+        break
+      else
+      puts "What now?: (C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail"
       answer = gets.chomp
+      end
     end
   end
 end

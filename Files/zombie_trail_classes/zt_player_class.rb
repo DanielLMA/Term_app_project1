@@ -1,5 +1,5 @@
 class CharacterSpeedy
-    HP = 10
+    HP = 5
     attr_reader :hp, :exp
   
     def initialize
