@@ -8,7 +8,7 @@ class CharacterSpeedy
       @a = 1
       @hp = HP
       @exp = 0
-      @items_bag = ["rusty razor"]
+      @items_bag = []
       @leaching = false
     end
   
@@ -37,6 +37,14 @@ class CharacterSpeedy
   
     def dead?
       @hp <= 0
+    end
+
+    def add_item(name)
+      @items_bag << name
+    end
+
+    def check_for_item(name)
+      @items_bag.include?(name)
     end
 
     def leached

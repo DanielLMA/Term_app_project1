@@ -2,8 +2,8 @@ require "random-word"   #? puts RandomWord.adjs.next #practice random word
 require "colorize"
 
 #! TO DO e.g. BUY, SELL, PRACTICE, CHAT, ETC see OTdestination.rb. Account for erros in typing responses. 
-module Tavern
-  def inn
+module Destination
+  def destination
     exclamation = ["Hot diggity!", "Momma Mia!", "Boy oh boy!", "Luck O' di Irish, maytee", "Woooohooooo!", "Strike me pink!"]
     roulette_array = ["Red", "Black"]
     coin_toss_array = ["Heads", "Tails"]
@@ -11,25 +11,35 @@ module Tavern
     flip_counter = 0
     zombie_approach_counter = 0
     if @destination_counter == 0
-      "\n#{exclamation.sample}!! You made it to the tavern alive. What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+      "\n#{exclamation.sample}! You made it to the tavern alive, #{@name}. What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
       sleep(0.5)
     else
-      "\n#{exclamation.sample}!! You survived! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+      "\n#{exclamation.sample}!! You survived, #{@name}! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
       sleep(0.5)
     end
-    @destination_counter += 1
     "\n(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail.".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
     answer = gets.chomp
     while answer
       zombie_approach_counter += 1
       if answer == "C"
         puts "Who would you like to talk to?".colorize(:cyan ) #! LIST CHARACTERS HERE ON THE HASHES
+        puts @characters.map {|key, value| key}
+        character_answer = gets.chomp
+        @characters.fetch(character_answer.to_sym) 
+        if character_answer == "Dr_Important" && @destination_counter == 0 
+          @player.add_item("flashlight")
+          puts "Here's a flashlight I used for my zombie operating experiments. There's zombie blood all over it, but she'll be right, eh?"
+        elsif character_answer == "Dr_Important" && @destination_counter == 1
+          @player.add_item("rusty razor")
+          puts "Here's a rusty razor from my operating room. May come in handy on your quest, eh?"
+        else
+        end
       elsif answer == "L"
         puts "That's a pretty view".colorize(:cyan ) #! ASCII GOES HERE. MAkE $ OF STEPS DETERMINE THE VIEW
       elsif answer == "G"
         puts "Gambling you say? #{exclamation.sample} Do you want to play (C)oin toss for more exp or russian (R)oulette or hp?".colorize(:cyan )
         gambling_answer = gets.chomp #! FIND WAY TO GET SIMILAR ANSWERS that are close to ct or rr
-        if gambling_answer == "Coin toss".colorize(:cyan )
+        if gambling_answer == "Coin toss"
           puts "Coin toss it is. #{exclamation.sample}".colorize(:cyan )
           if flip_counter >= 3
             puts "No more coin tosses today! Calm down there bub.".colorize(:cyan )
@@ -46,17 +56,17 @@ module Tavern
             puts "Flip again? Y or N".colorize(:cyan )
             flip_counter += 1
             flip_again = gets.chomp
-            if flip_again == "Y".colorize(:cyan )
+            if flip_again == "Y"
               if flip_counter > 5
                 puts "Sorry. Max number of flips.".colorize(:cyan )
                 break
-              else puts "Heads or Tails".colorize(:cyan )               end
+              else puts "Heads or Tails?"             end
             elsif flip_again == "N"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
             end
           end           end
-        elsif gambling_answer == "Roulette".colorize(:cyan )
+        elsif gambling_answer == "Roulette"
           if roulette_counter >= 5
             puts "Nice try. No more roulette today.".colorize(:cyan )
           else puts "#{exclamation.sample} You like taking risks. My kind of person. (R)ed or (B)lack.".colorize(:cyan )
@@ -117,5 +127,6 @@ module Tavern
       answer = gets.chomp
       end
     end
+    @destination_counter += 1
   end
 end

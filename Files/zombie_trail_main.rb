@@ -5,42 +5,45 @@ require_relative "zombie_trail_modules/zt_destination_module"
 require_relative "zombie_trail_classes/zt_player_class"
 
 class Trail
-  include Tavern #! next step try having all of inn in this ....so that exp and hp transfers over.
+  include Destination
 
   def initialize
     @player = CharacterSpeedy.new
-    # @player = CharacterRocky.new
-    # @battle = Battle.new
-    # introduction #!readd at end
     @trail_counter = 0
     @destination_counter = 0
+    @name = nil
+    @characters = {
+      Bob: "You #{RandomWord.adjs.next} #{RandomWord.nouns.next}. Coming into this #{RandomWord.adjs.next} part of town. You better beat it before I use my #{RandomWord.nouns.next} on you.",
+      Bertha: "I seemed to have lost my #{RandomWord.nouns.next}. I thought I set it by my #{RandomWord.nouns.next} but a #{RandomWord.adjs.next} came and stole it.",
+      Dr_Important: "People around here are a little #{RandomWord.adjs.next}."
+    }
+    #four methods below called to run my program
+    # introduction
     game_start
     game_middle
     game_final
   end
 
+  def introduction 
+    "Welcome to Zombie Trail!\n".colorize(:black).colorize(:background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.3)
+    "It is a most #{RandomWord.adjs.next} day for a #{RandomWord.adjs.next} stroll with zombies.".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.3)
+    "\nFirst thing's first. What is your name?".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.1)
+    puts "\n"
+    @name = gets.chomp
+    "\nGreat, #{@name}. Let's hit the trail...\n".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    sleep(0.5)
+  end
+  #possibilities of interactions chosen at random during 
   Lvl1_RandomEvent = [
-    :smallzombie, :smallzombie, :walking, :walking, :walking
+    :smallzombie, :smallzombie, :walking, :walking, :walking,
   ]
-
   def lvl1_random_event
     Lvl1_RandomEvent.sample
   end
 
-  def introduction #!readd at end
-    "Welcome to Zombie Trail!\n".colorize(:black ).colorize( :background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-    sleep(0.3)
-    "It is a most #{RandomWord.adjs.next} day for a #{RandomWord.adjs.next} stroll with zombies.".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-    sleep(0.3)
-    "\nFirst thing's first. What is your name?".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-    sleep(0.1)
-    puts "\n"
-    name = gets.chomp
-    "\nGreat, #{name}. Let's hit the trail...\n".colorize(:white ).colorize( :background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-    sleep(0.5)
-  end
-
-  # private #!
   def game_start
     while @trail_counter < 0
       lvl1_trail_random_event = lvl1_random_event
@@ -49,23 +52,22 @@ class Trail
       @trail_counter += 1
       if lvl1_trail_random_event == :smallzombie
         "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-        "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "\nYou encounter a #{RandomWord.adjs.next} zombie! \n".colorize(:green).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep(0.7)
         @player.exp_add.zombie_attack
         sleep(0.7)
       elsif lvl1_trail_random_event == :walking
-        "--------------\n".colorize(:blue ).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "--------------\n".colorize(:blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep(0.5)
-        puts "You're walking".colorize(:blue )
+        puts "You're walking".colorize(:blue)
         sleep(0.7)
-        "--------------\n".colorize(:blue ).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "--------------\n".colorize(:blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
       else lvl1_trail_random_event == :item
         "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
         "\nYou found an item!\n".colorize(:blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-        sleep (0.7)       
-      end
+        sleep (0.7)       end
       if @player.dead?
-        "You died.".colorize(:black ).colorize( :background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+        "You died.".colorize(:black).colorize(:background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
         sleep (1.0)
         break
       end
@@ -73,23 +75,24 @@ class Trail
     if @player.dead?
       skip
     else
-       inn
+      destination
     end
   end
 
   Lvl2_RandomEvent = [
-    :running, :running, :running, :smallzombie, :largezombie
+    :running, :running, :running, :smallzombie, :largezombie, :lost 
   ]
 
   def lvl2_random_event
     Lvl2_RandomEvent.sample
   end
+
   def game_middle
     # leached = false
     if @player.dead?
       skip #!this will need to be a skip after add game_middle
     else
-      "You're about to enter the Forbbiden Forest. Hope you brought your flashlight.\n".colorize(:light_green).colorize( :background => :blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+      "You're about to enter the Forbbiden Forest. Hope you brought your flashlight.\n".colorize(:light_green).colorize(:background => :blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
       sleep(1.0)
       #? while @player.living - This worked below to run only while player was living.
       while @trail_counter < 10
@@ -113,26 +116,25 @@ class Trail
           "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
           "\nYou found an item!\n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
           sleep (0.7)
-        # elsif lvl2_trail_random_event == :leachingzombie
-        #   "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
-        #   "\nYou encounter a #{RandomWord.adjs.next} LEACHING ZOMBIE!!! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-        #   @player.leached.leaching
-        #   leached = true
-        #   sleep (0.7)   
+        elsif lvl2_trail_random_event == :lost 
+          if @player.check_for_item("flashlight")
+            puts "Good thing you got that flashlight from Dr_Important. You can see the path clearly."
+          else 
+            puts "Hey dope. Forgot to bring that flashlight...Looks like I landed back at the start. Argh!"
+            @trail_counter = 0
+          end
         else lvl2_trail_random_event == :largezombie
           "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
           "\nYou encounter a #{RandomWord.adjs.next} LARGE ZOMBIE! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
           sleep(0.7)
           @player.exp_add.zombie_attack
-          puts "LARGE ZOMBIE won't leave you alone!"
+          puts "LARGE ZOMBIE won't leave you alone!".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+          sleep(0.7)
           @player.exp_add.zombie_attack
-          sleep(0.7)        
-        end
-        # if leached == true
-        #   @player.leaching
+          sleep(0.7)         end
         if @player.dead?
           "You died!".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-          sleep (1.0)
+          sleep (2.0)
           break
         else
         end
@@ -140,7 +142,7 @@ class Trail
       if @player.dead?
         skip
       else
-        inn
+        destination
       end
     end
   end
@@ -148,9 +150,9 @@ class Trail
   def game_final
     leached = false
     if @player.dead?
-      game_ending #!this will need to be a skip after add game_middle
+      game_ending
     else
-      "You need to swim to your freedom! Hope you brought your #{RandomWord.adjs.next} swimsuit.\n".colorize(:light_green).colorize( :background => :blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+      "You need to swim to your freedom! This river is full of zombie leaches. Hope you brought something to keep 'em off!\n".colorize(:light_green).colorize(:background => :blue).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
       sleep(1.0)
       #? while @player.living - This worked below to run only while player was living.
       while @trail_counter < 15
@@ -179,7 +181,7 @@ class Trail
           "\nYou encounter a #{RandomWord.adjs.next} LEACHING ZOMBIE!!! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
           @player.leached.leaching
           leached = true
-          sleep (0.7)   
+          sleep (0.7)
         else lvl2_trail_random_event == :largezombie
           "..!".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
           "\nYou encounter a #{RandomWord.adjs.next} LARGE ZOMBIE! \n".each_char { |c| putc c; $stdout.flush; sleep 0.04 }
@@ -187,8 +189,7 @@ class Trail
           @player.exp_add.zombie_attack
           puts "LARGE ZOMBIE won't leave you alone!"
           @player.exp_add.zombie_attack
-          sleep(0.7)        
-        end
+          sleep(0.7)         end
         if leached == true
           @player.leaching
         elsif @player.dead?
@@ -210,12 +211,12 @@ class Trail
   def game_ending
     "Game Over\n".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
   end
-  
+
   def game_victory
     puts "You survived the Zombie Apocalypse! Off to the pub (coming soon in Zombie Trail 2.0)"
   end
 
-  def skip #blank method to skip another method storyline
+  def skip
   end
 end
 
