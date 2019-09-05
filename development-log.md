@@ -1,0 +1,4 @@
+**Status update 4/9/19**
+
+I hit a major snag when I tried to add a feature to allow for an instance variable in the 'CharacterSpeedy' class that was a boolean. The value is initialized and set to false, changing to true when, in the Trail class within the game_final method (The 3rd method in which the player is on the "trail"), a :leachingzombie is encountered. I was able to solve this when I called a method from CharacterSpeedy to switch the @leaching instance variable to true. I was then able to give the user the option to remove the leaching zombie (turn the @leaching boolean variable to false) if they have the "rusty razor" in their @items_bag array, but also choose to use it. I think that my code is not completely DRY, however, as I needed to add a boolean variable to the game_final method in Trail that sets to true after the first :leachingzombie is encountered, after which time the leaching method must be continuously called in CharacterSpeedy. 
+
