@@ -31,3 +31,6 @@ Your outline must include:
 - how the user will interact with / use each feature
 - how errors will be handled by the application and displayed to the user
 
+*Flow Chart*
+
+![Flowchart](https://github.com/DanielLMA/Term_app_project1/blob/master/other/zt_tap_flowchart.jpg)
