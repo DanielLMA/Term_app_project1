@@ -12,9 +12,10 @@ module Tavern
     zombie_approach_counter = 0
     if @destination_counter == 0
       "\n#{exclamation.sample}!! You made it to the tavern alive. What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
-      sleep(0.8)
+      sleep(0.5)
     else
       "\n#{exclamation.sample}!! You survived! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+      sleep(0.5)
     end
     @destination_counter += 1
     "\n(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail.".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
@@ -99,14 +100,17 @@ module Tavern
       if @player.hp == 0
         break
       elsif zombie_approach_counter == 3 
-        "There's a faint sound of zombies appraoching. Better hurry it up in here, lad.\n".colorize(:light_red ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        "There's a faint sound of zombies...\n".colorize(:green).each_char { |c| putc c; $stdout.flush; sleep 0.04 } 
+        sleep (0.5)
+        "Better hurry it up in here, lad!\n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
         sleep (0.5)
         puts "What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail\n".colorize(:cyan )
         answer = gets.chomp 
       elsif zombie_approach_counter == 6 
         puts "*BANG*".colorize(:red )
         sleep(1.0)
-        "The zombies broke in. Run!!!".colorize(:red ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        "The zombies broke in. Run!!!\n".colorize(:red ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        sleep(1.0)
         break
       else
       puts "What now?: (C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail".colorize(:cyan )

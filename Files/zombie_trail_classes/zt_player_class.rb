@@ -1,6 +1,6 @@
 class CharacterSpeedy
-    HP = 5
-    attr_reader :hp, :exp
+    HP = 10
+    attr_accessor :hp, :exp, :leaching
   
     def initialize
       @d = 0
@@ -8,6 +8,8 @@ class CharacterSpeedy
       @a = 1
       @hp = HP
       @exp = 0
+      @items_bag = ["rusty razor"]
+      @leaching = false
     end
   
     def living
@@ -34,7 +36,33 @@ class CharacterSpeedy
     end
   
     def dead?
-      @hp == 0
+      @hp <= 0
+    end
+
+    def leached
+      @leaching = true
+      self
+    end
+
+    def leaching
+      if @leaching == true 
+        if @items_bag.include?("rusty razor") 
+        puts "You have a rusty razor. Use it to slice off the leaching zombie? Yes or No?"
+        answer = gets.chomp
+        if answer == "Yes"
+          puts "You cut the bastard off! Good work, lad."
+          @leaching = false
+        else 
+          @hp -= 1
+          puts "Okay. Your funeral!"
+          puts "You've got a leach zombie attached! -1 HP. HP: #{@hp}"
+        end
+      else
+        @hp -= 1
+        puts "You don't have a razor to cut the leaching zombie off! -1 HP. HP: #{@hp}"
+      end
+    else 
+    end
     end
   
     def zombie_attack
@@ -69,7 +97,9 @@ class CharacterSpeedy
           puts "But you got away! Your agility saved you. EXP is now #{@exp}".colorize(:blue)
         else :hurt
           @hp -= 1
-          puts "You were bit by the zombie. HP is now #{@hp}".colorize(:red )      end
+          puts "You were bit by the zombie. HP is now #{@hp}".colorize(:red )      
+        end
       end
     end
+
   end
