@@ -1,5 +1,6 @@
 require "random-word"   #? puts RandomWord.adjs.next #practice random word
 require "colorize"
+require 'io/console' 
 
 require_relative "zombie_trail_modules/zt_destination_module"
 require_relative "zombie_trail_classes/zt_player_class"
@@ -18,13 +19,15 @@ class Trail
       Dr_Important: "People around here are a little #{RandomWord.adjs.next}."
     }
     #four methods below called to run my program
-    # introduction
+    start_screen
+    introduction
     game_start
     game_middle
     game_final
   end
 
   def introduction 
+
     "Welcome to Zombie Trail!\n".colorize(:black).colorize(:background => :red).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
     sleep(0.3)
     "It is a most #{RandomWord.adjs.next} day for a #{RandomWord.adjs.next} stroll with zombies.".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
@@ -218,6 +221,52 @@ class Trail
 
   def skip
   end
+
+  def start_screen
+    puts " ---------WELCOME TO ZOMBIE TRAIL--------".colorize(:green)
+    puts "                                (()))".colorize(:green)
+    puts "                               /|x x|".colorize(:green)
+    puts "                              /|( - )" .colorize(:green)
+    puts "                      ___.-._/|/".colorize(:green)
+    puts "                     /=`_'-'-'/  !!".colorize(:green)
+    puts "                     |-{-_-_-}     !".colorize(:green)
+    puts "                     (-{-_-_-}    !".colorize(:green)
+    puts "                      |{_-_-_}   !".colorize(:green)
+    puts "                       }-_-_-}".colorize(:green)
+    puts "                       {-_|-_}".colorize(:green)
+    puts "                       {-_|_-}".colorize(:green)
+    puts "                       {_-|-_}".colorize(:green)
+    puts "                       {_-|-_}".colorize(:green)
+    puts "                   ____%%@ @%%_______".colorize(:green)
+    puts "-----------press any key to continue------".colorize(:green)
+    continue_story
+  end
+
+  def scenic_view
+puts "                                   /\\ "
+puts "                              /\\  //\\\\\ "
+puts "                       /\\    //\\\///  \\\\\        /\\\ "
+puts "                      //\\\\  ///\\\//    \\\\  /\\  //\\\\ "
+puts "         /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\ "
+puts "        / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\ "
+puts "       /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       * "
+puts "      /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\ "
+puts "     / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\ "
+puts "    / ^^  ^ ^ ^\\  /______________________________\\ ^ ^ \\ /|o|||\\ "
+puts "   /  ^  ^^ ^ ^  /________________________________\\  ^  /|||||o|\\ "
+puts "  /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\\       | "
+puts " / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |           | " 
+puts "/ ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo  | "
+puts "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+  end
+
+                                                                                                        
+  def continue_story                                                                                                     
+    #puts "Press any key to continue"
+    STDIN.getch                                                                                                              
+    puts "                         \r" # extra space to overwrite in case next sentence is short                                                                                                              
+  end       
+
 end
 
 Trail.new

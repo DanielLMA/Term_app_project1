@@ -1,5 +1,3 @@
-require "random-word"   #? puts RandomWord.adjs.next #practice random word
-require "colorize"
 
 #! TO DO e.g. BUY, SELL, PRACTICE, CHAT, ETC see OTdestination.rb. Account for erros in typing responses. 
 module Destination
@@ -24,18 +22,19 @@ module Destination
       if answer == "C"
         puts "Who would you like to talk to?".colorize(:cyan ) #! LIST CHARACTERS HERE ON THE HASHES
         puts @characters.map {|key, value| key}
-        character_answer = gets.chomp
-        @characters.fetch(character_answer.to_sym) 
-        if character_answer == "Dr_Important" && @destination_counter == 0 
+        answer = gets.chomp
+        puts @characters.fetch(answer.to_sym).colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        if answer == "Dr_Important" && @destination_counter == 0 
           @player.add_item("flashlight")
-          puts "Here's a flashlight I used for my zombie operating experiments. There's zombie blood all over it, but she'll be right, eh?"
-        elsif character_answer == "Dr_Important" && @destination_counter == 1
+          puts "Here's a flashlight I used for my zombie operating experiments. There's zombie blood all over it, but she'll be right, eh?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
+        elsif answer == "Dr_Important" && @destination_counter == 1
           @player.add_item("rusty razor")
           puts "Here's a rusty razor from my operating room. May come in handy on your quest, eh?"
         else
         end
       elsif answer == "L"
-        puts "That's a pretty view".colorize(:cyan ) #! ASCII GOES HERE. MAkE $ OF STEPS DETERMINE THE VIEW
+        scenic_view
+        puts "#{exclamation.sample} That's a pretty view".colorize(:cyan )
       elsif answer == "G"
         puts "Gambling you say? #{exclamation.sample} Do you want to play (C)oin toss for more exp or russian (R)oulette or hp?".colorize(:cyan )
         gambling_answer = gets.chomp #! FIND WAY TO GET SIMILAR ANSWERS that are close to ct or rr
