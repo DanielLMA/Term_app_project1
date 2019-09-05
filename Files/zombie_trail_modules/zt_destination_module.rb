@@ -13,23 +13,26 @@ module Destination
       sleep(0.5)
     else
       "\n#{exclamation.sample}!! You survived, #{@name}! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
-      sleep(0.5)
+      sleep(0.7)
     end
-    "\n(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail.".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+    puts "\n(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail.".colorize(:cyan )
     answer = gets.chomp
     while answer
       zombie_approach_counter += 1
       if answer == "C"
-        puts "Who would you like to talk to?".colorize(:cyan ) #! LIST CHARACTERS HERE ON THE HASHES
+        puts "Who would you like to talk to?".colorize(:cyan ) 
         puts @characters.map {|key, value| key}
         answer = gets.chomp
-        puts @characters.fetch(answer.to_sym).colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        @characters.fetch(answer.to_sym).colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
+        sleep (0.5)
         if answer == "Dr_Important" && @destination_counter == 0 
           @player.add_item("flashlight")
-          puts "Here's a flashlight I used for my zombie operating experiments. There's zombie blood all over it, but she'll be right, eh?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
+          "Here's a flashlight. There's zombie blood all over it, but she'll be right, eh?\n".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
+        sleep(0.5)
         elsif answer == "Dr_Important" && @destination_counter == 1
-          @player.add_item("rusty razor")
-          puts "Here's a rusty razor from my operating room. May come in handy on your quest, eh?"
+          @player.add_item("rusty_razor")
+          "Here's a rusty razor from my operating room. May come in handy, eh?\n".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
+          sleep(0.5)
         else
         end
       elsif answer == "L"
@@ -42,7 +45,7 @@ module Destination
           puts "Coin toss it is. #{exclamation.sample}".colorize(:cyan )
           if flip_counter >= 3
             puts "No more coin tosses today! Calm down there bub.".colorize(:cyan )
-          else puts "heads or tails?".colorize(:cyan )
+          else puts "Heads or Tails?".colorize(:cyan )
             while coin_toss_answer = gets.chomp
             coin_toss_flip = coin_toss_array.sample
             "..!".each_char { |c| putc c; sleep 0.5 }
@@ -59,7 +62,7 @@ module Destination
               if flip_counter > 5
                 puts "Sorry. Max number of flips.".colorize(:cyan )
                 break
-              else puts "Heads or Tails?"             end
+              else puts "Heads or Tails?".colorize(:cyan )             end
             elsif flip_again == "N"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
@@ -77,7 +80,7 @@ module Destination
               puts "Got it!\n It was #{roulette_spin}.\n Gain an hp: #{@player.hp}hp".colorize(:cyan )
             elsif roulette_answer != roulette_spin
               @player.hp_sub
-              puts "Wrong!\n It was #{roulette_spin}.\n Lose an hp: #{@player.hp}hp".colorize(:cyan )
+              puts "Wrong!\n It was #{roulette_spin}.\n Lose an hp: #{@player.hp}hp".colorize(:red )
               if @player.hp == 0
                 puts "You died!".colorize(:cyan )
                 break
@@ -91,7 +94,7 @@ module Destination
                 puts "Sorry, max spins reached.\nYou are most #{RandomWord.adjs.next}!".colorize(:cyan )
                 break
               else
-                puts "red or black?".colorize(:cyan )
+                puts "Red or Black?".colorize(:cyan )
               end
             elsif spin_again == "N"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
@@ -101,19 +104,24 @@ module Destination
         end
       elsif answer == "B"
         puts "Okay. Back to the trail.".colorize(:cyan )
+        sleep(0.5)
         break
+      elsif answer == "S"
+        puts "Your stats: EXP = #{@player.exp}, HP = #{@player.hp}. Def/Off/Agi levels: #{@player.d}/#{@player.o}/#{@player.a}"
+      elsif answer == "I"
+        puts "You've got #{@player.items_bag} in your bag."
       else
-        puts "Don't comprehend what you're saying. What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail".colorize(:cyan )
+        puts "Don't comprehend. What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail".colorize(:cyan )
         answer = gets.chomp
       end
       if @player.hp == 0
         break
       elsif zombie_approach_counter == 3 
-        "There's a faint sound of zombies...\n".colorize(:green).each_char { |c| putc c; $stdout.flush; sleep 0.04 } 
+        "There's a faint sound of zombies...\n".colorize(:green).each_char { |c| putc c; $stdout.flush; sleep 0.03 } 
         sleep (0.5)
-        "Better hurry it up in here, lad!\n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
+        "Better hurry it up in here, lad!\n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
         sleep (0.5)
-        puts "What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail\n".colorize(:cyan )
+        puts "What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail\n".colorize(:cyan )
         answer = gets.chomp 
       elsif zombie_approach_counter == 6 
         puts "*BANG*".colorize(:red )
@@ -122,7 +130,7 @@ module Destination
         sleep(1.0)
         break
       else
-      puts "What now?: (C)hat with locals. (L)ook around. (G)amble. (B)ack to the trail".colorize(:cyan )
+      puts "What now?: (C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail".colorize(:cyan )
       answer = gets.chomp
       end
     end
