@@ -33,4 +33,5 @@ Your outline must include:
 
 *Flow Chart*
 
-![Flowchart](https://github.com/DanielLMA/Term_app_project1/blob/master/other/zt_tap_flowchart.jpg)
+Files/Other/zt_tap_flowchart.jpg
+
