@@ -1,8 +1,8 @@
-**Zombie Trail Ruby Terminal Application**
+# Zombie Trail Ruby Terminal Application
 
-**Purpose & Scope**
+# Purpose & Scope
 
-*Description*
+## Description
 
 "Zombie Trail" is a basic linear role-playing game utilizing CLI (command line interface). It's purpose is to explore the different methods and learning objectives covered in the initial two weeks of the Coder Academy Fast-Track course, in the context of an adventure game.
 
@@ -12,7 +12,7 @@ The game-play follows a linear model where a player's survival, dependent on HP 
 
 Development of the application is for the purpose of entertainment. Themes are satrical and draw from "zombie culture". Users utilize strategy skills to achieve the goal of survival in the game when confronted with different obsticals. The target audience for anyone interested in RPGs and zombies, young or old. 
 
-*3 eatures*
+## 3 Features
 
 1. Users will be able to "run" through a loop of random interactions which will include zombies (basic, large, and leaching), and item retrieval. This will follow through a while loop that will choose values from an array at random and output them to the screen. These outputs will have an effect on the HP and EXP instance variables of the player class. These values in turn will affect whether a player is still living or levels up, respectively. These values are held within an instance variable in the character class. 
 
@@ -22,19 +22,14 @@ Development of the application is for the purpose of entertainment. Themes are s
 
 *User Interaction and Experience* 
 
-###
-
-Players will be instructe
-
-
-Develop an outline of the user interaction and experience for the application.
-Your outline must include:
-- how the user will find out how to interact with / use each feature
-- how the user will interact with / use each feature
-- how errors will be handled by the application and displayed to the user
-
-*Flow Chart*
+## Flow Chart
 
 ![Flow chart](./Files/images/zt_tap_flowchart.jpg)
 
+## Project Management
+
 ![Project Management](./Files/images/project_management.png)
+
+## User Interaction
+
+The user will interact based on prompts throughout the gameplay. An initial description screen will load at the start along with a start menu. Users will receive input on the options that they can choose from a list and can check stats. 
