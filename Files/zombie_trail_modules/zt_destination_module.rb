@@ -15,11 +15,11 @@ module Destination
       "\n#{exclamation.sample}!! You survived, #{@name}! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
       sleep(0.7)
     end
-    puts "\n (1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.".colorize(:cyan )
+    puts "\n (1)Chat with locals.\n (2) Look around.\n (3) Gamble.\n (4) Status check.\n (5) Item bag check.\n (6) Back to the trail.".colorize(:cyan )
     answer = gets.chomp
     while answer
       zombie_approach_counter += 1
-      if answer == "C" || "1" || "Chat" || "c"
+      if answer == "1"
         puts "Who would you like to talk to?".colorize(:cyan ) 
         puts @characters.map {|key, value| key}
         answer = gets.chomp
@@ -34,11 +34,12 @@ module Destination
           "Here's a rusty razor from my operating room. May come in handy, eh?\n".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
           sleep(0.5)
         else
+          break
         end
-      elsif answer == "L" || "l" || "2" || "Look" || "look"
+      elsif answer == "2"
         scenic_view
         puts "#{exclamation.sample} That's a pretty view".colorize(:cyan )
-      elsif answer == "G" || "g" || "3" || "Gamble" || "gamble"
+      elsif answer == "3"
         puts "Gambling you say? #{exclamation.sample} Do you want to play (C)oin toss for more exp or russian (R)oulette or hp?".colorize(:cyan )
         gambling_answer = gets.chomp 
         if gambling_answer == "Coin toss"
@@ -55,16 +56,16 @@ module Destination
             elsif coin_toss_answer != coin_toss_flip
               puts "Wrong. \nIt was #{coin_toss_flip}.".colorize(:cyan )
             end
-            puts "Flip again? (1) Y or (2) N".colorize(:cyan )
+            puts "Flip again? Y or N".colorize(:cyan )
             flip_counter += 1
             flip_again = gets.chomp
-            if flip_again == "Y" || 1 || "y"
+            if flip_again == "Y" 
               if flip_counter > 5
                 puts "Sorry. Max number of flips.".colorize(:cyan )
                 break
               else puts "Heads or Tails?".colorize(:cyan )             
               end
-            elsif flip_again == "N" || 2 || "n"
+            elsif flip_again == "N" 
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
             end
@@ -88,32 +89,33 @@ module Destination
                 break
               end
             end
-            puts "Spin again?\n (1) Y\n (2) N".colorize(:cyan )
+            puts "Spin again?\n Y or N".colorize(:cyan )
             roulette_counter += 1
             spin_again = gets.chomp
-            if spin_again == "Y" || "y" || "1"
+            if spin_again == "Y" 
               if roulette_counter > 5
                 puts "Sorry, max spins reached.\nYou are most #{RandomWord.adjs.next}!".colorize(:cyan )
                 break
               else
                 puts "Red or Black?".colorize(:cyan )
               end
-            elsif spin_again == "N" || "2" || "n"
+            elsif spin_again == "N"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
             end
-          end           end
+          end           
         end
-      elsif answer == "B"
+        end
+      elsif answer == "6"
         puts "Okay. Back to the trail.".colorize(:cyan )
         sleep(0.5)
         break
-      elsif answer == "S"
+      elsif answer == "4" 
         puts "Your stats: EXP = #{@player.exp}, HP = #{@player.hp}. Def/Off/Agi levels: #{@player.d}/#{@player.o}/#{@player.a}"
-      elsif answer == "I"
+      elsif answer == "5"
         puts "You've got #{@player.items_bag} in your bag."
       else
-        puts "Don't comprehend. What would you like to do?\n(1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.l".colorize(:cyan )
+        puts "Don't comprehend. What would you like to do?\n(1)Chat with locals.\n (2) Look around.\n (3)Gamble.\n (4) Status check.\n (5) Item bag check.\n (6) Back to the trail.l".colorize(:cyan )
         answer = gets.chomp
       end
       if @player.hp == 0 #For if a player dies while playing Russian Roulette. 
@@ -130,7 +132,7 @@ module Destination
         sleep(1.0)
         break
       else
-      puts "What now?: \n(1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.".colorize(:cyan )
+      puts "What now?: \n(1)Chat with locals.\n (2) Look around.\n (3) Gamble.\n (4) Status check.\n (5) Item bag check.\n (6) Back to the trail.".colorize(:cyan )
       answer = gets.chomp
       end
     end

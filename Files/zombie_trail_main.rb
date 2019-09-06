@@ -24,9 +24,13 @@ class Trail
     }
     #five methods called to run my program.
     start_screen
+    clear
     introduction
+    clear
     game_start
+    clear
     game_middle
+    clear
     game_final
   end
 
@@ -36,6 +40,19 @@ class Trail
     STDIN.getch                                                                                                              
     puts "                         \r" # extra space to overwrite in case next sentence is short                                                                                                              
   end       
+
+  def clear
+    print "\e[2J\e[f"
+  end
+
+  def description_screen
+    puts "Zombie Trail is a fun, basic, linear RPG game. Players travel along three separate trails\n
+     encountering zombies at random which can attack decreasing health, but also allowing the player\n
+     to gain EXP, which can be used to level up. Be sure at each destination to talk to the locals\n
+     in order to obtain needed items but also have fun playing small mini games to gain EXP and HP pts.\n
+     You can check your stats at your destinations, but don't stay too long, for the zombies are coming!\n
+     Good luck!!!"
+  end
 
   #First method initialized for storyline 
   def introduction   
@@ -48,8 +65,23 @@ class Trail
     sleep(0.1)
     puts "\n"
     @name = gets.chomp
-    "\nGreat, #{@name}. Let's hit the trail...\n".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
-    sleep(0.5)
+    "What number would you like to do?\n1. Game Description\n2. Start the Trail".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+    answer = gets.chomp
+    while answer 
+      if answer == "1" 
+      description_screen
+      puts "press any key to continue"
+      continue_story 
+      break
+      elsif answer == "2"
+      "\nGreat, #{@name}. Let's hit the trail...\n".colorize(:white).colorize(:background => :light_black).each_char { |c| putc c; $stdout.flush; sleep 0.04 }
+      sleep(0.5)
+      break
+      else 
+      puts "Can you repeat that?\n1. Game Description\n2. Start the Trail"
+      answer = gets.chomp
+      end
+    end
   end
 
   #array for events in first part of trail
@@ -96,6 +128,7 @@ class Trail
     if @player.dead?
       skip
     else
+      clear
       destination
     end
   end
@@ -165,6 +198,7 @@ class Trail
       if @player.dead?
         skip
       else
+        clear
         destination
       end
     end
@@ -239,11 +273,11 @@ class Trail
       if @player.dead?
         game_ending
       else
+        clear
         game_victory
       end
     end
   end
-
   #Death screen 
   def game_ending
     "Game Over\n".each_char { |c| putc c; $stdout.flush; sleep 0.5 }
