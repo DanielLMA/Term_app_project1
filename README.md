@@ -35,3 +35,4 @@ Your outline must include:
 
 ![Flow chart](./Files/Other/zt_tap_flowchart.jpg)
 
+![Project Management](./Files/images/project_management.png)
