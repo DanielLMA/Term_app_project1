@@ -1,3 +1,4 @@
+#Not the correct way to create art on ascii but putting it this way until I have the correct gem. 
 module Art
   def start_screen
     puts " --------------ZOMBIE TRAIL--------------".colorize(:green)

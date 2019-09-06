@@ -1,5 +1,5 @@
 
-#! TO DO e.g. BUY, SELL, PRACTICE, CHAT, ETC see OTdestination.rb. Account for erros in typing responses. 
+# A large unwieldy loop. It started small and grew. Kept it this way to help manage a large loop but would be better if 
 module Destination
   def destination
     exclamation = ["Hot diggity!", "Momma Mia!", "Boy oh boy!", "Luck O' di Irish, maytee", "Woooohooooo!", "Strike me pink!"]
@@ -15,11 +15,11 @@ module Destination
       "\n#{exclamation.sample}!! You survived, #{@name}! You're at the docks! What would you like to do?".colorize(:cyan ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
       sleep(0.7)
     end
-    puts "\n(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail.".colorize(:cyan )
+    puts "\n (1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.".colorize(:cyan )
     answer = gets.chomp
     while answer
       zombie_approach_counter += 1
-      if answer == "C"
+      if answer == "C" || "1" || "Chat" || "c"
         puts "Who would you like to talk to?".colorize(:cyan ) 
         puts @characters.map {|key, value| key}
         answer = gets.chomp
@@ -35,12 +35,12 @@ module Destination
           sleep(0.5)
         else
         end
-      elsif answer == "L"
+      elsif answer == "L" || "l" || "2" || "Look" || "look"
         scenic_view
         puts "#{exclamation.sample} That's a pretty view".colorize(:cyan )
-      elsif answer == "G"
+      elsif answer == "G" || "g" || "3" || "Gamble" || "gamble"
         puts "Gambling you say? #{exclamation.sample} Do you want to play (C)oin toss for more exp or russian (R)oulette or hp?".colorize(:cyan )
-        gambling_answer = gets.chomp #! FIND WAY TO GET SIMILAR ANSWERS that are close to ct or rr
+        gambling_answer = gets.chomp 
         if gambling_answer == "Coin toss"
           puts "Coin toss it is. #{exclamation.sample}".colorize(:cyan )
           if flip_counter >= 3
@@ -55,28 +55,30 @@ module Destination
             elsif coin_toss_answer != coin_toss_flip
               puts "Wrong. \nIt was #{coin_toss_flip}.".colorize(:cyan )
             end
-            puts "Flip again? Y or N".colorize(:cyan )
+            puts "Flip again? (1) Y or (2) N".colorize(:cyan )
             flip_counter += 1
             flip_again = gets.chomp
-            if flip_again == "Y"
+            if flip_again == "Y" || 1 || "y"
               if flip_counter > 5
                 puts "Sorry. Max number of flips.".colorize(:cyan )
                 break
-              else puts "Heads or Tails?".colorize(:cyan )             end
-            elsif flip_again == "N"
+              else puts "Heads or Tails?".colorize(:cyan )             
+              end
+            elsif flip_again == "N" || 2 || "n"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
             end
-          end           end
+          end           
+        end
         elsif gambling_answer == "Roulette"
           if roulette_counter >= 5
             puts "Nice try. No more roulette today.".colorize(:cyan )
           else puts "#{exclamation.sample} You like taking risks. My kind of person. (R)ed or (B)lack.".colorize(:cyan )
             while roulette_answer = gets.chomp
             "..!".each_char { |c| putc c; sleep 0.5 }
-            roulette_spin = roulette_array.sample #! CAN TRY TO GET ODD/EVEN FOR EVEN MORE GAIN
+            roulette_spin = roulette_array.sample 
             if roulette_answer == roulette_spin
-              @player.hp_add #! unless value = 10, then stay at 10. Check pp with Ben.
+              @player.hp_add 
               puts "Got it!\n It was #{roulette_spin}.\n Gain an hp: #{@player.hp}hp".colorize(:cyan )
             elsif roulette_answer != roulette_spin
               @player.hp_sub
@@ -86,17 +88,17 @@ module Destination
                 break
               end
             end
-            puts "Spin again? Y or N".colorize(:cyan )
+            puts "Spin again?\n (1) Y\n (2) N".colorize(:cyan )
             roulette_counter += 1
             spin_again = gets.chomp
-            if spin_again == "Y"
+            if spin_again == "Y" || "y" || "1"
               if roulette_counter > 5
                 puts "Sorry, max spins reached.\nYou are most #{RandomWord.adjs.next}!".colorize(:cyan )
                 break
               else
                 puts "Red or Black?".colorize(:cyan )
               end
-            elsif spin_again == "N"
+            elsif spin_again == "N" || "2" || "n"
               puts "Good choice. Back to the lobby.".colorize(:cyan )
               break
             end
@@ -111,26 +113,24 @@ module Destination
       elsif answer == "I"
         puts "You've got #{@player.items_bag} in your bag."
       else
-        puts "Don't comprehend. What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail".colorize(:cyan )
+        puts "Don't comprehend. What would you like to do?\n(1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.l".colorize(:cyan )
         answer = gets.chomp
       end
-      if @player.hp == 0
+      if @player.hp == 0 #For if a player dies while playing Russian Roulette. 
         break
-      elsif zombie_approach_counter == 3 
+      elsif zombie_approach_counter == 5 #restricts amount of time player can spend at destination. 
         "There's a faint sound of zombies...\n".colorize(:green).each_char { |c| putc c; $stdout.flush; sleep 0.03 } 
         sleep (0.5)
         "Better hurry it up in here, lad!\n".colorize(:green ).each_char { |c| putc c; $stdout.flush; sleep 0.02 }
         sleep (0.5)
-        puts "What would you like to do?(C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail\n".colorize(:cyan )
-        answer = gets.chomp 
-      elsif zombie_approach_counter == 6 
+      elsif zombie_approach_counter == 10 
         puts "*BANG*".colorize(:red )
         sleep(1.0)
         "The zombies broke in. Run!!!\n".colorize(:red ).each_char { |c| putc c; $stdout.flush; sleep 0.03 }
         sleep(1.0)
         break
       else
-      puts "What now?: (C)hat with locals. (L)ook around. (G)amble. (S)tatus check. (I)tem bag check. (B)ack to the trail".colorize(:cyan )
+      puts "What now?: \n(1)(C)hat with locals.\n (2) (L)ook around.\n (3) (G)amble.\n (4) (S)tatus check.\n (5) (I)tem bag check.\n (6) (B)ack to the trail.".colorize(:cyan )
       answer = gets.chomp
       end
     end

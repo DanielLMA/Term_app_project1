@@ -6,7 +6,7 @@ class CharacterSpeedyTest < Test::Unit::TestCase
         @player = CharacterSpeedy.new
         @d = 0
         @o = 0
-        # @a = 1
+        @a = 1
         @hp = 10
         @exp = 0
         @items_bag = ["rusty razor"]
