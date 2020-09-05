@@ -35,3 +35,4 @@ class CharacterSpeedyTest < Test::Unit::TestCase
     end
 end
 
+# TODO Create other characters (e.g. Strong class, evasive class, etc)

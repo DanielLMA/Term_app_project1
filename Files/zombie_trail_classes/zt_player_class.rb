@@ -1,10 +1,10 @@
 
-#Character class starts as 'speedy' having an increase in agility. This can be changed later to have a super class and children classes of specific characters. 
+#Character class starts as 'speedy' having an increase in agility. This can be changed later to have a super class and children classes of specific characters.
 class CharacterSpeedy
   HP = 10
   attr_accessor :hp, :exp, :d, :o, :a, :leaching, :items_bag
 
-  #inializes character stats, for defense offense, and agility. Exp starts at 0 but adds in game play. 
+  #inializes character stats, for defense offense, and agility. Exp starts at 0 but adds in game play.
   def initialize
     @d = 0
     @o = 0
@@ -42,7 +42,7 @@ class CharacterSpeedy
     @items_bag << name
   end
 
-  #Right now, random item is added. Creates a template to later add real objects that are important for use. 
+  #Right now, random item is added. Creates a template to later add real objects that are important for use.
   def add_random_item
     random_item = RandomWord.adjs.next
     @items_bag << random_item
@@ -58,7 +58,7 @@ class CharacterSpeedy
     self
   end
 
-  #leaching cability. Method to be called if leaching zombie is encountered in the final trail path 
+  #leaching cability. Method to be called if leaching zombie is encountered in the final trail path
   def leaching
     if @leaching == true
       if @items_bag.include?("rusty_razor")
